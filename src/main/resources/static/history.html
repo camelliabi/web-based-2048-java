@@ -1,0 +1,56 @@
+<!--
+<?php
+$conn = new PDO("sqlite:2048.sqlite");
+
+$stmt = $conn->query("SELECT * FROM allgames ORDER BY record DESC");
+$history = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$currentGameId = $_GET['game_id'] ?? null;
+
+?>
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Game History</title>
+    <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+
+  <h1 id="title">Game History</h1>
+
+  <div id="history-list">
+
+<!--
+	<?php foreach ($history as $row): ?>
+-->
+
+  <div class="history-item">
+    <button class="button">
+      <a href="index.php?game_id=<?= urlencode($row['game_id']) ?>">
+       Game <?= htmlspecialchars($row['game_id']) ?>,
+       Record: <?= htmlspecialchars($row['record']) ?>
+      </a>
+    </button>
+  </div>
+
+<!--
+<?php endforeach; ?>
+-->
+
+  </div>
+
+  <button id="back-button" class="button">
+    <a href="index.html<?= $currentGameId ? '?game_id=' . urlencode($currentGameId) : '' ?>">
+      Go Back
+    </a>
+  </button>
+
+  <script src="history.js"></script>
+
+</body>
+</html>

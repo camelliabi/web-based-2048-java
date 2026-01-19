@@ -1,0 +1,102 @@
+h1 { 
+    font-family: system-ui, Arial;
+    font-weight: 800;  
+    color:#08306f;
+}
+
+body { 
+    font-family: system-ui, Arial; 
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;      
+    align-items: center;      
+    justify-content: center;     
+}
+
+
+.board {
+    width: min(85vw, 250px);
+    background:#08519c;
+    padding:5px;
+    border-radius:5px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+    user-select:none;
+}
+
+.button{
+    margin-top:10px;
+    padding:5px;
+    font-size:16px;
+    font-weight:600;
+    border-radius:5px;
+    background:#08519c;
+    color:#fff;
+    cursor:pointer;
+    width: min(85vw, 250px);
+
+
+}
+
+.button a{
+    text-decoration:none;
+    color:#fff;
+}
+
+.a {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.cell{
+    aspect-ratio:1/1;
+    border-radius:5px;
+    background:#6fa8dc;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:25px;
+    color:#08306f;
+}
+
+.cell[data-v="0"]{ 
+    color:transparent; 
+}
+
+.cell[data-v="2"]{
+    background:#f7fbff;
+}
+
+.cell[data-v="4"]{
+    background:#deebf7;
+}
+    
+.cell[data-v="8"]{
+    background:#c6dbef;
+}
+
+.cell[data-v="16"]{
+    background:#9ecae1;
+}
+
+.cell[data-v="32"]{
+    background:#6baed6;
+}
+
+.cell[data-v="64"]{
+    background:#4292c6;
+}
+
+.cell[data-v="128"],
+.cell[data-v="256"],
+.cell[data-v="512"],
+.cell[data-v="1024"],
+.cell[data-v="2048"]{
+    background:#2171b5;
+    font-size:25px;
+}
+
