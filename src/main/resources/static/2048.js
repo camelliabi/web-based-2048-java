@@ -27,10 +27,17 @@ document.getElementById("new-game-button").addEventListener("click", () => {
 
 //game history button
 document.getElementById("game-history-button").addEventListener("click", () => {
-  const url = activeGameId ? `history.html?game_id=${encodeURIComponent(activeGameId)}` : 'history.html';
+  const current = new URLSearchParams(window.location.search).get("game_id");
+
+  const gameid = current ? Number(current) : activeGameId;
+
+  const url = gameid
+    ? `history.html?game_id=${encodeURIComponent(gameid)}`
+    : `history.html`;
+
   window.location.href = url;
-  //saveAllGames();
 });
+
 
 //start a new game
 async function newGame() {

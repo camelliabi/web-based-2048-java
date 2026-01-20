@@ -44,7 +44,7 @@ $currentGameId = $_GET['game_id'] ?? null;
   </div>
 
   <button id="back-button" class="button">
-    <a href="index.html<?= $currentGameId ? '?game_id=' . urlencode($currentGameId) : '' ?>">
+    <a id="back-link" href="index.html">
       Go Back
     </a>
   </button>

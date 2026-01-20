@@ -21,3 +21,17 @@ window.addEventListener("load", async () => {
     box.appendChild(item);
   }
 });
+
+
+
+window.addEventListener("load", () => {
+  const back = document.getElementById("back-link");
+  if (!back) return;
+
+  const currentGameId = new URLSearchParams(window.location.search).get("game_id");
+
+  back.href = currentGameId
+    ? `index.html?game_id=${encodeURIComponent(currentGameId)}`
+    : "index.html";
+});
+
