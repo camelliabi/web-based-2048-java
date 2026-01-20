@@ -15,14 +15,14 @@ public class GameApiController {
         this.repo = repo;
     }
 
-    // === 等价 save_game.php ===
+    // use api instead of save_game.php
     @PostMapping("/save_game")
     public Map<String, Object> saveGame(@RequestBody Map<String, Object> body) throws SQLException {
         int userId = ((Number) body.getOrDefault("user_id", 1)).intValue();
-        Object gameIdObj = body.get("game_id"); // 可能是 null
+        Object gameIdObj = body.get("game_id"); 
         Integer gameId = (gameIdObj == null) ? null : ((Number) gameIdObj).intValue();
 
-        Object dataJsonObj = body.get("data_json"); // 这里是 grid 的二维数组
+        Object dataJsonObj = body.get("data_json"); 
         String dataJson = JsonUtil.toJson(dataJsonObj);
 
         // only one active game per user: insert or update
@@ -35,7 +35,7 @@ public class GameApiController {
         return Map.of("status", "success");
     }
 
-    // === 等价 load_game.php ===
+ // use api instead of load_game.php
     @GetMapping("/load_game")
     public Map<String, Object> loadGame(@RequestParam("user_id") int userId) throws SQLException {
         return repo.loadActiveGameDataJson(userId)
@@ -43,7 +43,7 @@ public class GameApiController {
                 .orElseGet(() -> Map.of("error", "No saved game found"));
     }
 
-    // === 等价 load_game_id.php ===
+ // use api instead of load_game_id.php
     @GetMapping("/load_game_id")
     public Map<String, Object> loadGameId(@RequestParam("user_id") int userId) throws SQLException {
         return repo.loadActiveGameId(userId)
@@ -51,7 +51,7 @@ public class GameApiController {
                 .orElseGet(() -> Map.of("error", "No saved game found"));
     }
 
-    // === 等价 load_previous_game.php ===
+    //  load_previous_game.php 
     @GetMapping("/load_previous_game")
     public Map<String, Object> loadPreviousGame(@RequestParam("user_id") int userId,
                                                 @RequestParam("game_id") int gameId) throws SQLException {
@@ -60,7 +60,7 @@ public class GameApiController {
                 .orElseGet(() -> Map.of("error", "No saved game found"));
     }
 
-    // === 等价 save_allgames.php ===
+    // ===  save_allgames.php
     @PostMapping("/save_allgames")
     public Map<String, Object> saveAllGames(@RequestBody Map<String, Object> body) throws SQLException {
         int userId = ((Number) body.getOrDefault("user_id", 1)).intValue();
@@ -70,7 +70,7 @@ public class GameApiController {
         Object dataJsonObj = body.get("data_json");
         String dataJson = JsonUtil.toJson(dataJsonObj);
 
-        // record = biggest tile
+
         int record = computeRecord(dataJsonObj);
 
         if (gameId != null) {
@@ -78,14 +78,12 @@ public class GameApiController {
         } else {
             int nextId = repo.getMaxGameId() + 1;
             repo.insertAllGames(userId, nextId, dataJson, record);
-            // 这里可以选择：把 activegame 的 game_id 也更新为 nextId（更合理）
             // repo.updateActiveGame(userId, nextId, dataJson);
         }
 
         return Map.of("status", "success");
     }
 
-    // 给 history.html 用（替代 history.php 的查询）
     @GetMapping("/history")
     public List<Map<String, Object>> history() throws SQLException {
         return repo.listHistoryByRecordDesc();

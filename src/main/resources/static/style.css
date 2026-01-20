@@ -21,7 +21,7 @@ body {
     padding:5px;
     border-radius:5px;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4,minmax(0, 1fr));
     gap:5px;
     user-select:none;
 }
@@ -36,8 +36,6 @@ body {
     color:#fff;
     cursor:pointer;
     width: min(85vw, 250px);
-
-
 }
 
 .button a{
@@ -59,8 +57,15 @@ body {
     align-items:center;
     justify-content:center;
     font-weight:800;
-    font-size:25px;
+    font-size:20px;
     color:#08306f;
+	min-width:0;
+	min-height:0;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:clip;
+	text-align:center;
+	line-height:1;
 }
 
 .cell[data-v="0"]{ 
@@ -97,6 +102,7 @@ body {
 .cell[data-v="1024"],
 .cell[data-v="2048"]{
     background:#2171b5;
-    font-size:25px;
+    font-size:20px;
 }
+
 

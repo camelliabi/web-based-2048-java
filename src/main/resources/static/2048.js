@@ -27,7 +27,7 @@ document.getElementById("new-game-button").addEventListener("click", () => {
 
 //game history button
 document.getElementById("game-history-button").addEventListener("click", () => {
-  const url = activeGameId ? `history.php?game_id=${encodeURIComponent(activeGameId)}` : 'history.html';
+  const url = activeGameId ? `history.html?game_id=${encodeURIComponent(activeGameId)}` : 'history.html';
   window.location.href = url;
   //saveAllGames();
 });
