@@ -48,7 +48,7 @@ async function newGame() {
 
 //save current progress
 function saveProgress(){
-	return fetch('save_game.php', {
+	return fetch('/api/save_game', {
 		method: 'POST',
 		body: JSON.stringify({
 			user_id: 1,
@@ -62,7 +62,7 @@ function saveProgress(){
 
 //save all games for user
 function saveAllGames(){
-	return fetch('save_allgames.php', {
+	return fetch('/api/save_allgames', {
 		method: 'POST',
 		body: JSON.stringify({
 			user_id: 1,
@@ -76,9 +76,10 @@ function saveAllGames(){
 
 //load game for user
 function loadGame(user_id) {
-	fetch('load_game.php?user_id=' + user_id)
+	fetch('/api/load_game?user_id=' + user_id)
 		.then(response => response.json())
 		.then(data => {
+			if (data.error) return; 
 			const newGrid = [];
 
 			for (let r = 0; r < data.data_json.length; r++) {
@@ -96,7 +97,7 @@ function loadGame(user_id) {
 
 //load active game id for user
 function loadGameID(user_id) {
-	fetch('load_game_id.php?user_id=' + user_id)
+	fetch('/api/load_game_id?user_id=' + user_id)
 		.then(response => response.json())
 		.then(data => {
 			activeGameId = Number(data.game_id);
@@ -108,7 +109,7 @@ function loadGameID(user_id) {
 
 //load previous game by id
 function loadPreviousGame(user_id, game_id) {
-	return fetch('load_previous_game.php?user_id=' + user_id + '&game_id=' + game_id)
+	return fetch('/api/load_previous_game?user_id=' + user_id + '&game_id=' + game_id)
 		.then(response => response.json())
 		.then(data => {
 			const newGrid = [];
